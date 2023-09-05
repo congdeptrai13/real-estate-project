@@ -60,19 +60,21 @@
                                 <label for="old_password" class="form-label">Old Password</label>
                                 <input type="password" class="form-control @error('old_password') is-invalid @enderror"
                                     id="old_password" name="old_password" autocomplete="off" placeholder="old password">
+                                @error('old_password')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
-                            @error('old_password')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+
 
                             <div class="mb-3">
                                 <label for="new_password" class="form-label">New Password</label>
                                 <input type="password" class="form-control @error('new_password') is-invalid @enderror"
                                     id="new_password" name="new_password" autocomplete="off" placeholder="new password">
+                                @error('new_password')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
-                            @error('old_password')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+
 
                             <div class="mb-3">
                                 <label for="new_password_confirmation" class="form-label">Confirm New Password</label>

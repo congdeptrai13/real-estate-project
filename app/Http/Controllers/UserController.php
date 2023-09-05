@@ -56,7 +56,41 @@ class UserController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        $notification = [
+            "message" => "User logout successfully",
+            "alert-type" => "success"
+        ];
+        return redirect('/login')->with($notification);
+    }
 
-        return redirect('/login');
+    public function UserChangePassword()
+    {
+        $id = Auth::id();
+        $userData = User::find($id);
+        return view("frontend.dashboard.change_password", compact("userData"));
+    }
+
+    public function UserPasswordUpdate(Request $request)
+    {
+        $request->validate([
+            "old_password" => "required",
+            "new_password" => "required | confirmed"
+        ]);
+        if (!Hash::check($request->old_password, Auth::user()->password)) {
+            $notification = [
+                "message" => "Old password does not match",
+                "alert-type" => "error"
+            ];
+            return back()->with($notification);
+        }
+
+        User::where("id", Auth::id())->update([
+            "password" => Hash::make($request->new_password)
+        ]);
+        $notification = [
+            "message" => "Change password successfully",
+            "alert-type" => "success"
+        ];
+        return back()->with($notification);
     }
 }

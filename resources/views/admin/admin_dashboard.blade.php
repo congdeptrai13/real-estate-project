@@ -46,6 +46,9 @@ License: For each use you must have a valid license purchased only from above li
 
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+    <!-- End plugin css for this page -->
 </head>
 
 <body>
@@ -112,6 +115,23 @@ License: For each use you must have a valid license purchased only from above li
             }
         @endif
     </script>
+    <!-- core:js -->
+    {{-- <script src="{{ asset('backend/assets/vendors/core/core.js') }}"></script> --}}
+    <!-- endinject -->
+
+    <!-- Plugin js for this page -->
+    <script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <!-- End plugin js for this page -->
+    <script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
+
 </body>
 
 </html>
