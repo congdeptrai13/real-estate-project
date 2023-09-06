@@ -63,4 +63,15 @@ Route::middleware(["auth", "role:admin"])->group(function () {
     });
 });
 
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(PropertyTypeController::class)->group(function () {
+        Route::get('/all/amenity', 'AllAmenity')->name('all.amenity');
+        Route::get('/add/amenity', 'AddAmenity')->name('add.amenity');
+        Route::get('/edit/amenity/{id}', 'EditAmenity')->name('edit.amenity');
+        Route::get('/delete/amenity/{id}', 'DeleteAmenity')->name('delete.amenity');
+        Route::post('/store/amenity', 'StoreAmenity')->name('store.amenity');
+        Route::post('/update/amenity', 'UpdateAmenity')->name('update.amenity');
+    });
+});
+
 require __DIR__ . '/auth.php';

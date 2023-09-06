@@ -129,6 +129,7 @@ License: For each use you must have a valid license purchased only from above li
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="{{ asset('backend/assets/js/code.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/validate.min.js') }}"></script>
     <!-- Custom js for this page -->
     <!-- End custom js for this page -->
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Amenities;
 use App\Models\PropertyType;
 use Illuminate\Http\Request;
 
@@ -66,6 +67,61 @@ class PropertyTypeController extends Controller
         PropertyType::find($id)->delete();
         $notification = [
             "message" => "Property type deleted successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->back()->with($notification);
+    }
+
+    //amenitiescontroller 
+    public function AllAmenity()
+    {
+        $amenities = Amenities::latest()->get();
+        return view("backend.amenities.all_amenities", compact("amenities"));
+    }
+
+    public function AddAmenity()
+    {
+        return view("backend.amenities.add_amenities");
+    }
+
+    public function StoreAmenity(Request $request)
+    {
+        Amenities::create([
+            "amenity_name" => $request->amenity_name,
+        ]);
+
+        $notification = [
+            "message" => "Amenity create successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("all.amenity")->with($notification);
+    }
+
+    public function EditAmenity($id)
+    {
+        $amenity = Amenities::find($id);
+        return view("backend.amenities.edit_amenities", compact("amenity"));
+    }
+
+    public function UpdateAmenity(Request $request)
+    {
+        $aid = $request->id;
+        Amenities::find($aid)->update([
+            "amenity_name" => $request->amenity_name,
+        ]);
+
+        $notification = [
+            "message" => "Amenity updated successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("all.amenity")->with($notification);
+    }
+
+    public function DeleteAmenity($id)
+    {
+        Amenities::find($id)->delete();
+        $notification = [
+            "message" => "Amenity deleted successfully",
             "alert-type" => "success"
         ];
         return redirect()->back()->with($notification);
