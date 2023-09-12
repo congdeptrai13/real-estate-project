@@ -17,7 +17,7 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="amenity_name" class="form-label">Amenity Name</label>
-                                <input type="text" name="amenity_name" placeholder="amenity name" class="form-control">
+                                <input type="text" name="amenity_name" class="form-control">
                             </div>
 
                             <button type="submit" class="btn btn-primary me-2">Add New</button>

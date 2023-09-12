@@ -42,7 +42,7 @@
                 <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false"
                     aria-controls="amenities">
                     <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Amenities Type</span>
+                    <span class="link-title">Amenities</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
                 <div class="collapse" id="amenities">
@@ -52,6 +52,25 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('add.amenity') }}" class="nav-link">Add Amenity</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false"
+                    aria-controls="property">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Property</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="property">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.property') }}" class="nav-link">All property</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('add.property') }}" class="nav-link">Add property</a>
                         </li>
 
                     </ul>
@@ -83,8 +102,8 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button" aria-expanded="false"
-                    aria-controls="advancedUI">
+                <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button"
+                    aria-expanded="false" aria-controls="advancedUI">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Advanced UI</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>

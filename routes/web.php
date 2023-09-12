@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,20 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get('/delete/amenity/{id}', 'DeleteAmenity')->name('delete.amenity');
         Route::post('/store/amenity', 'StoreAmenity')->name('store.amenity');
         Route::post('/update/amenity', 'UpdateAmenity')->name('update.amenity');
+    });
+});
+
+//property All route
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(PropertyController::class)->group(function () {
+        Route::get('/all/property', 'AllProperty')->name('all.property');
+        Route::post('/store/property', 'StoreProperty')->name('store.property');
+        Route::post('/update/property', 'UpdateProperty')->name('update.property');
+        Route::post('/update/property/thumbnail', 'UpdatePropertyThumbnail')->name('update.property.thumbnail');
+        Route::post('/update/property/multiimage', 'UpdatePropertyMultiImage')->name('update.property.multiimage');
+        Route::get('/add/property', 'AddProperty')->name('add.property');
+        Route::get('/edit/property/{id}', 'EditProperty')->name('edit.property');
+        Route::get('/delete/property/multiimage/{id}', 'PropertyMultiImageDelete')->name('delete.property.multiimage');
     });
 });
 
