@@ -108,6 +108,7 @@ class PropertyController extends Controller
 
     public function EditProperty($id)
     {
+        $facilities = Facility::where("property_id", $id)->get();
         $property = Property::find($id);
         $type = $property->amenities_id;
         $multiImage = MultiImage::where("property_id", $id)->get();
@@ -115,7 +116,7 @@ class PropertyController extends Controller
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $activeAgent = User::where("status", "active")->where("role", "agent")->latest()->get();
-        return view("backend.property.edit_property", compact("property", "propertyType", "amenities", "activeAgent", 'property_ami', 'multiImage'));
+        return view("backend.property.edit_property", compact("property", "propertyType", "amenities", "activeAgent", 'property_ami', 'multiImage', 'facilities'));
     }
 
     public function UpdateProperty(Request $request)
@@ -207,5 +208,46 @@ class PropertyController extends Controller
             "alert-type" => "success"
         ];
         return redirect()->back()->with($notification);
+    }
+
+    public function StoreNewMultiImage(Request $request)
+    {
+        $img = $request->multiImg;
+        $make_name = hexdec(uniqid()) . "." . $img->getClientOriginalExtension();
+        Image::make($img)->resize(770, 520)->save("upload/property/multi-image/" . $make_name);
+        $uploadPath = "upload/property/multi-image/" . $make_name;
+        MultiImage::create([
+            "property_id" => $request->imageId,
+            "photo_name" => $uploadPath
+        ]);
+        $notification = [
+            "message" => "Property Multi Image added successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->back()->with($notification);
+    }
+
+    public function UpdatePropertyFacilities(Request $request)
+    {
+        $pid = $request->id;
+        if ($request->facility_name == NULL) {
+            return redirect()->back();
+        } else {
+            Facility::where("property_id", $pid)->delete();
+            $facilities = count($request->facility_name);
+            for ($i = 0; $i < $facilities; $i++) {
+                $facility = new Facility();
+                $facility->property_id = $pid;
+                $facility->facility_name = $request->facility_name[$i];
+                $facility->distance = $request->distance[$i];
+                $facility->save();
+            }
+            //end facilities
+            $notification = [
+                "message" => "Property facilities updated successfully",
+                "alert-type" => "success"
+            ];
+            return redirect()->back()->with($notification);
+        }
     }
 }

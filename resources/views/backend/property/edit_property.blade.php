@@ -326,6 +326,149 @@
                                 </table>
                             </form>
                         </div>
+
+                        <form action="{{ route('store.new.multiimage') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="imageId" value="{{ $property->id }}">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <td>
+                                        <input type="file" class="form-control" name="multiImg" id="multiImg">
+                                    </td>
+                                    <td>
+                                        <input type="submit" class="btn btn-info" value="Add Image">
+                                    </td>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- update facility --}}
+    <div class="page-content" style="margin-top: -35px;">
+
+        <div class="row profile-body">
+
+            <!-- middle wrapper start -->
+            <div class="col-md-12 col-xl-12 middle-wrapper">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Edit Facilities</h6>
+                        <form id="myForm" method="POST" action="{{ route('update.property.facilities') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $property->id }}">
+                            @foreach ($facilities as $item)
+                                <div class="whole_extra_item_add" id="whole_extra_item_add">
+                                    <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                                        <div class="container mt-2">
+                                            @csrf
+                                            <div class="row add_item">
+                                                <div class="form-group col-md-4">
+                                                    <label for="facility_name">Facilities</label>
+                                                    <select name="facility_name[]" id="facility_name"
+                                                        class="form-control">
+                                                        <option value="">Select Facility</option>
+                                                        <option value="Hospital"
+                                                            {{ $item->facility_name == 'Hospital' ? 'selected' : '' }}>
+                                                            Hospital</option>
+                                                        <option value="SuperMarket"
+                                                            {{ $item->facility_name == 'SuperMarket' ? 'selected' : '' }}>
+                                                            Super Market</option>
+                                                        <option value="School"
+                                                            {{ $item->facility_name == 'School' ? 'selected' : '' }}>
+                                                            School
+                                                        </option>
+                                                        <option value="Entertainment"
+                                                            {{ $item->facility_name == 'Entertainment' ? 'selected' : '' }}>
+                                                            Entertainment</option>
+                                                        <option value="Pharmacy"
+                                                            {{ $item->facility_name == 'Pharmacy' ? 'selected' : '' }}>
+                                                            Pharmacy</option>
+                                                        <option value="Airport"
+                                                            {{ $item->facility_name == 'Airport' ? 'selected' : '' }}>
+                                                            Airport</option>
+                                                        <option value="Railways"
+                                                            {{ $item->facility_name == 'Railways' ? 'selected' : '' }}>
+                                                            Railways</option>
+                                                        <option value="Bus Stop"
+                                                            {{ $item->facility_name == 'Bus Stop' ? 'selected' : '' }}>
+                                                            Bus
+                                                            Stop</option>
+                                                        <option value="Beach"
+                                                            {{ $item->facility_name == 'Beach' ? 'selected' : '' }}>
+                                                            Beach
+                                                        </option>
+                                                        <option value="Mall"
+                                                            {{ $item->facility_name == 'Mall' ? 'selected' : '' }}>Mall
+                                                        </option>
+                                                        <option value="Bank"
+                                                            {{ $item->facility_name == 'Bank' ? 'selected' : '' }}>Bank
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="distance">Distance</label>
+                                                    <input type="text" name="distance[]" id="distance"
+                                                        class="form-control" value="{{ $item->distance }}">
+                                                </div>
+                                                <div class="form-group col-md-4" style="padding-top: 20px">
+                                                    <span class="btn btn-success btn-sm addeventmore"><i
+                                                            class="fa fa-plus-circle">Add</i></span>
+                                                    <span class="btn btn-danger btn-sm removeeventmore"><i
+                                                            class="fa fa-minus-circle">Remove</i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <br>
+                            <button type="submit" class="btn btn-primary submit">Submit form</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="visibility: hidden">
+        <div class="whole_extra_item_add" id="whole_extra_item_add">
+            <div class="whole_extra_item_delete" id="whole_extra_item_delete">
+                <div class="container mt-2">
+                    <div class="row">
+
+                        <div class="form-group col-md-4">
+                            <label for="facility_name">Facilities</label>
+                            <select name="facility_name[]" id="facility_name" class="form-control">
+                                <option value="">Select Facility</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="SuperMarket">Super Market</option>
+                                <option value="School">School</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Pharmacy">Pharmacy</option>
+                                <option value="Airport">Airport</option>
+                                <option value="Railways">Railways</option>
+                                <option value="Bus Stop">Bus Stop</option>
+                                <option value="Beach">Beach</option>
+                                <option value="Mall">Mall</option>
+                                <option value="Bank">Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="distance">Distance</label>
+                            <input type="text" name="distance[]" id="distance" class="form-control"
+                                placeholder="Distance (Km)">
+                        </div>
+                        <div class="form-group col-md-4" style="padding-top: 20px">
+                            <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
+                            <span class="btn btn-danger btn-sm removeeventmore"><i
+                                    class="fa fa-minus-circle">Remove</i></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -333,6 +476,25 @@
     </div>
 
 
+
+    <!----For Section-------->
+    <!----For Section-------->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var counter = 0;
+            $(document).on("click", ".addeventmore", function() {
+                var whole_extra_item_add = $("#whole_extra_item_add").html();
+                $(this).closest(".add_item").append(whole_extra_item_add);
+                counter++;
+            });
+            $(document).on("click", ".removeeventmore", function(event) {
+                $(this).closest("#whole_extra_item_delete").remove();
+                counter -= 1
+            });
+        });
+    </script>
+    <!--========== End of add multiple class with ajax ==============-->
+    {{-- end update facilities --}}
     {{-- end change image --}}
     <!--========== End of add multiple class with ajax ==============-->
     <script type="text/javascript">
