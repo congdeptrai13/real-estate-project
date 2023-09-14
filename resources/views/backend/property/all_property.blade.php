@@ -47,12 +47,15 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('edit.property', $item->id) }}" class="btn btn-warning">
-                                                    Edit
+                                                <a href="{{ route('details.property', $item->id) }}" class="btn btn-info">
+                                                    <i data-feather="eye"></i>
                                                 </a>
-                                                <a href="{{ route('delete.amenity', $item->id) }}" class="btn btn-danger"
+                                                <a href="{{ route('edit.property', $item->id) }}" class="btn btn-warning">
+                                                    <i data-feather="edit"></i>
+                                                </a>
+                                                <a href="{{ route('delete.property', $item->id) }}" class="btn btn-danger"
                                                     id="delete">
-                                                    Delete </a>
+                                                    <i data-feather="trash-2"></i> </a>
 
                                             </td>
                                         </tr>

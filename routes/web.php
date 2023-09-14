@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,7 +51,7 @@ Route::middleware(["auth", "role:agent"])->group(function () {
     Route::get('/agent/dashboard', [AgentController::class, 'Dashboard'])->name('agent.dashboard');
 });
 
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 
 Route::middleware(["auth", "role:admin"])->group(function () {
@@ -87,7 +88,11 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::post('/update/property/Facilities', 'UpdatePropertyFacilities')->name('update.property.facilities');
         Route::get('/add/property', 'AddProperty')->name('add.property');
         Route::get('/edit/property/{id}', 'EditProperty')->name('edit.property');
+        Route::get('/details/property/{id}', 'DetailsProperty')->name('details.property');
         Route::get('/delete/property/multiimage/{id}', 'PropertyMultiImageDelete')->name('delete.property.multiimage');
+        Route::get('/delete/property/{id}', 'DeleteProperty')->name('delete.property');
+        Route::post('/inactive/property', 'InactiveProperty')->name('inactive.property');
+        Route::post('/active/property', 'ActiveProperty')->name('active.property');
     });
 });
 
