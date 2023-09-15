@@ -40,4 +40,80 @@ class AgentController extends Controller
 
         return redirect(RouteServiceProvider::AGENT);
     }
+
+    public function AgentLogout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+        $notification = [
+            "message" => "Agent logout successfully",
+            "alert-type" => "success"
+        ];
+        return redirect('/agent/login')->with($notification);
+    }
+
+    public function AgentProfile()
+    {
+        $id = Auth::id();
+        $profileAgent = User::find($id);
+        return view("agent.agent_profile_view", compact("profileAgent"));
+    }
+    public function AgentProfileStore(Request $request)
+    {
+        $id = Auth::id();
+        $data = User::find($id);
+        $data->name = $request->name;
+        $data->username = $request->username;
+        $data->email = $request->email;
+        $data->phone = $request->phone;
+        $data->address = $request->address;
+
+        if ($request->file("photo")) {
+            $file = $request->file("photo");
+            @unlink(public_path("upload/agent_images/") . $data->photo);
+            $fileName = date("YmdHi") . $file->getClientOriginalName();
+            $file->move(public_path("upload/agent_images"), $fileName);
+            $data->photo = $fileName;
+        }
+        $data->save();
+        $notification = [
+            "message" => "Agent profile updated successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->back()->with($notification);
+    }
+
+    public function AgentChangePassword()
+    {
+        $id = Auth::id();
+        $profileAgent = User::find($id);
+        return view("agent.agent_change_password", compact("profileAgent"));
+    }
+
+    public function AgentUpdatePassword(Request $request)
+    {
+        $request->validate([
+            "old_password" => "required",
+            "new_password" => "required|confirmed"
+        ]);
+        if (!Hash::check($request->old_password, Auth::user()->password)) {
+            $notification = [
+                "message" => "Old password does not match",
+                "alert-type" => "error"
+            ];
+            return back()->with($notification);
+        }
+
+        User::where("id", Auth::id())->update([
+            "password" => Hash::make($request->new_password)
+        ]);
+        $notification = [
+            "message" => "Change password successfully",
+            "alert-type" => "success"
+        ];
+        return back()->with($notification);
+    }
 }

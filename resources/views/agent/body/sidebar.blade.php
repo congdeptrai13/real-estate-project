@@ -20,44 +20,6 @@
             </li>
             <li class="nav-item nav-category">web apps</li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
-                    aria-controls="emails">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Property Type</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse" id="emails">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('all.type') }}" class="nav-link">All Type</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('add.type') }}" class="nav-link">Add Type</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#amenities" role="button" aria-expanded="false"
-                    aria-controls="amenities">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Amenities</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse" id="amenities">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('all.amenity') }}" class="nav-link">All Amenity</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('add.amenity') }}" class="nav-link">Add Amenity</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false"
                     aria-controls="property">
                     <i class="link-icon" data-feather="mail"></i>
