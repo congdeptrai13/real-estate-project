@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('agent.agent_dashboard')
+@section('agent')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <div class="page-content">
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Form Grid</h6>
-                        <form id="myForm" method="POST" action="{{ route('store.property') }}"
+                        <form id="myForm" method="POST" action="{{ route('agent.store.property') }}"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
@@ -160,7 +160,7 @@
                             </div><!-- Row -->
 
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="form-group mb-3">
                                         <label class="form-label"> Property Type </label>
                                         <select class="form-select" id="exampleFormControlSelect1" name="ptype_id">
@@ -171,24 +171,14 @@
                                         </select>
                                     </div>
                                 </div><!-- Col -->
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="mb-3">
                                         <label class="form-label">Property Amenities</label>
                                         <select class="js-example-basic-multiple form-select" multiple="multiple"
                                             data-width="100%" name="amenities_id[]">
                                             @foreach ($amenities as $amenity)
-                                                <option value="{{ $amenity->amenity_name }}">{{ $amenity->amenity_name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div><!-- Col -->
-                                <div class="col-sm-4">
-                                    <div class="mb-3">
-                                        <label class="form-label">Agent </label>
-                                        <select class="form-select" id="exampleFormControlSelect1" name="agent_id">
-                                            <option selected="" disabled="">Select Agent</option>
-                                            @foreach ($activeAgent as $agent)
-                                                <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+                                                <option value="{{ $amenity->amenity_name }}">{{ $amenity->amenity_name }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

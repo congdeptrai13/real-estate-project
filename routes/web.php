@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
@@ -116,6 +117,24 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::post('/update/agent', 'UpdateAgent')->name('update.agent');
 
         Route::get("/changeStatus", "changeStatus");
+    });
+});
+
+Route::middleware(["auth", "role:agent"])->group(function () {
+    Route::controller(AgentPropertyController::class)->group(function () {
+        Route::get('/agent/all/property', 'AgentAllProperty')->name('agent.all.property');
+        Route::get('/agent/add/property', 'AgentAddProperty')->name('agent.add.property');
+        Route::post('/agent/store/property', 'AgentStoreProperty')->name('agent.store.property');
+        Route::get('/agent/edit/property/{id}', 'AgentEditProperty')->name('agent.edit.property');
+        Route::post('/agent/update/property', 'AgentUpdateProperty')->name('agent.update.property');
+        Route::post('/agent/update/property/thumbnail', 'AgentUpdatePropertyThumbnail')->name('agent.update.property.thumbnail');
+        Route::post('/agent/update/property/multiimage', 'AgentUpdatePropertyMultiimage')->name('agent.update.property.multiimage');
+        Route::get('/agent/delete/property/multiimage/{id}', 'AgentDeletePropertyMultiimage')->name('agent.delete.property.multiimage');
+        Route::post('/agent/store/new/multiimage', 'AgentStoreNewMultiimage')->name('agent.store.new.multiimage');
+        Route::post('/agent/update/property/facilities', 'AgentUpdatePropertyFacilities')->name('agent.update.property.facilities');
+
+        Route::get('/agent/details/property/{id}', 'AgentDetailsProperty')->name('agent.details.property');
+        Route::get('/agent/delete/property/{id}', 'AgentDeleteProperty')->name('agent.delete.property');
     });
 });
 
