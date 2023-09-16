@@ -98,4 +98,76 @@ class AdminController extends Controller
         ];
         return back()->with($notification);
     }
+
+    public function AllAgent()
+    {
+        $allAgent = User::where("role", "agent")->get();
+        return view("backend.agentuser.all_agent", compact("allAgent"));
+    }
+
+    public function AddAgent()
+    {
+        return view("backend.agentuser.add_agent");
+    }
+
+    public function StoreAgent(Request $request)
+    {
+        User::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone" => $request->phone,
+            "address" => $request->address,
+            "password" => Hash::make($request->password),
+            "role" => "agent",
+            "status" => "active"
+        ]);
+        $notification = [
+            "message" => "Agent created successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("all.agent")->with($notification);
+    }
+
+    public function EditAgent($id)
+    {
+        $agent = User::find($id);
+        return view("backend.agentuser.edit_agent", compact("agent"));
+    }
+
+    public function UpdateAgent(Request $request)
+    {
+        User::find($request->id)->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "phone" => $request->phone,
+            "address" => $request->address,
+        ]);
+        $notification = [
+            "message" => "Agent updated successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("all.agent")->with($notification);
+    }
+
+    public function DeleteAgent($id)
+    {
+        User::find($id)->delete();
+        $notification = [
+            "message" => "Agent deleted successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->back()->with($notification);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $status = $request->status;
+        $user_id = $request->user_id;
+        $user = User::find($user_id);
+        $user->status = $status;
+        $user->save();
+        return response()->json([
+            "success" => "Status Changed Successfully"
+        ]);
+    }
 }
