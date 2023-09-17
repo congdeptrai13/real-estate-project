@@ -138,4 +138,14 @@ Route::middleware(["auth", "role:agent"])->group(function () {
     });
 });
 
+//agent buy package
+Route::controller(AgentPropertyController::class)->group(function () {
+    Route::get('/buy/package', 'BuyPackage')->name('buy.package');
+    Route::get('/buy/business/plan', 'BuyBusinessPlan')->name('buy.business.plan');
+    Route::post('/store/business/plan', 'StoreBusinessPlan')->name('store.business.plan');
+    Route::get('/buy/professional/plan', 'BuyProfessionalPlan')->name('buy.professional.plan');
+    Route::post('/store/professional/plan', 'StoreProfessionalPlan')->name('store.professional.plan');
+
+});
+
 require __DIR__ . '/auth.php';

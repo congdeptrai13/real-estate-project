@@ -1,6 +1,10 @@
 @php
     $id = Auth::id();
     $status = \App\Models\User::find($id)->status;
+    $property = \App\Models\User::where('role', 'agent')
+        ->where('id', $id)
+        ->first();
+    $pcount = $property->credit;
 @endphp
 <nav class="sidebar">
     <div class="sidebar-header">
@@ -36,17 +40,21 @@
                             <li class="nav-item">
                                 <a href="{{ route('agent.all.property') }}" class="nav-link">All property</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('agent.add.property') }}" class="nav-link">Add property</a>
-                            </li>
+                            @if ($pcount == 1 || $pcount == 7)
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{ route('agent.add.property') }}" class="nav-link">Add property</a>
+                                </li>
+                            @endif
+
 
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/apps/calendar.html" class="nav-link">
+                    <a href="{{ route('buy.package') }}" class="nav-link">
                         <i class="link-icon" data-feather="calendar"></i>
-                        <span class="link-title">Calendar</span>
+                        <span class="link-title">Package</span>
                     </a>
                 </li>
                 <li class="nav-item nav-category">Components</li>

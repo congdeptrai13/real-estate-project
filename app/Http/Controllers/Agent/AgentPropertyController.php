@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenities;
 use App\Models\Facility;
 use App\Models\MultiImage;
+use App\Models\PackagePlan;
 use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\User;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class AgentPropertyController extends Controller
@@ -29,12 +31,22 @@ class AgentPropertyController extends Controller
     {
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
-        return view("agent.property.add_property", compact("propertyType", "amenities"));
+        $id = Auth::id();
+        $property = User::where("role", "agent")->where("id", $id)->first();
+        $pcount = $property->credit;
+        if ($pcount == 1 || $pcount == 7) {
+            return view("agent.package.buy_package");
+        } else {
+            return view("agent.property.add_property", compact("propertyType", "amenities"));
+        }
     }
 
 
     public function AgentStoreProperty(Request $request)
     {
+        $id = Auth::id();
+        $uid = User::find($id);
+        $nid = $uid->credit;
         $amen = implode(",", $request->amenities_id);
         $pcode = IdGenerator::generate([
             "table" => "properties",
@@ -100,6 +112,10 @@ class AgentPropertyController extends Controller
             $facility->distance = $request->distance[$i];
             $facility->save();
         }
+
+        User::where("id", $id)->update([
+            "credit" => DB::raw("1 + " . $nid)
+        ]);
         //end facilities
         $notification = [
             "message" => "Property created successfully",
@@ -285,5 +301,67 @@ class AgentPropertyController extends Controller
             "alert-type" => "success"
         ];
         return redirect()->back()->with($notification);
+    }
+
+    public function BuyPackage()
+    {
+        return view("agent.package.buy_package");
+    }
+
+    public function BuyBusinessPlan()
+    {
+        $data = Auth::user();
+        return view("agent.package.buy_business_plan", compact("data"));
+    }
+    public function BuyProfessionalPlan()
+    {
+        $data = Auth::user();
+        return view("agent.package.buy_professional_plan", compact("data"));
+    }
+
+    public function StoreBusinessPlan(Request $request)
+    {
+        $id = Auth::id();
+        $uid = User::find($id);
+        $nid = $uid->credit;
+        PackagePlan::create([
+            "user_id" => Auth::id(),
+            "package_name" => "Business",
+            "package_credits" => "3",
+            "invoice" => "ERS" . mt_rand(1000000, 9999999),
+            "package_amount" => "20",
+        ]);
+
+        User::where("id", $id)->update([
+            "credit" => DB::raw("3 + " . $nid)
+        ]);
+        $notification = [
+            "message" => "You have purchased basic package successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("agent.all.property")->with($notification);
+    }
+
+    public function StoreProfessionalPlan(Request $request)
+    {
+        $id = Auth::id();
+        $uid = User::find($id);
+        $nid = $uid->credit;
+        PackagePlan::create([
+            "user_id" => Auth::id(),
+            "package_name" => "Professional",
+            "package_credits" => "10",
+            "invoice" => "ERS" . mt_rand(1000000, 9999999),
+            "package_amount" => "50",
+        ]);
+
+        User::where("id", $id)->update([
+            "credit" => DB::raw("10 + " . $nid)
+        ]);
+        $notification = [
+            "message" => "You have purchased professional package successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("agent.all.property")->with($notification);
     }
 }
