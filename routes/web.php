@@ -5,6 +5,7 @@ use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -151,4 +152,9 @@ Route::controller(AgentPropertyController::class)->group(function () {
     Route::get('/package/history/invoice/{id}', 'PackageHistoryInvoice')->name('package.history.invoice');
 });
 
+
 require __DIR__ . '/auth.php';
+
+Route::controller(IndexController::class)->group(function () {
+    Route::get("/property/details/{id}/{slug}", "PropertyDetails")->name("property.details");
+});
