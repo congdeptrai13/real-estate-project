@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenities;
 use App\Models\Facility;
 use App\Models\MultiImage;
+use App\Models\PackagePlan;
 use App\Models\Property;
 use App\Models\PropertyType;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
@@ -310,5 +312,21 @@ class PropertyController extends Controller
             "alert-type" => "success"
         ];
         return redirect()->route("all.property")->with($notification);
+    }
+
+    public function AdminPackageHistory()
+    {
+        $packagehistory = PackagePlan::all();
+        return view("backend.package.package_history", compact("packagehistory"));
+    }
+
+    public function AdminPackageHistoryInvoice($id)
+    {
+        $packhistory = PackagePlan::find($id);
+        $pdf = Pdf::loadView('backend.package.package_history_invoice', compact("packhistory"))->setPaper("a4")->setOption([
+            "tempDir" => public_path(),
+            "chroot" => public_path()
+        ]);
+        return $pdf->download('invoice_' . $packhistory->invoice . '.pdf');
     }
 }

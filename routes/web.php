@@ -102,6 +102,9 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get('/delete/property/{id}', 'DeleteProperty')->name('delete.property');
         Route::post('/inactive/property', 'InactiveProperty')->name('inactive.property');
         Route::post('/active/property', 'ActiveProperty')->name('active.property');
+
+        Route::get("admin/package/history", "AdminPackageHistory")->name("admin.package.history");
+        Route::get("admin/package/history/invoice/{id}", "AdminPackageHistoryInvoice")->name("admin.package.history.invoice");
     });
 });
 
@@ -115,7 +118,6 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get('/edit/agent/{id}', 'EditAgent')->name('edit.agent');
         Route::get('/delete/agent/{id}', 'DeleteAgent')->name('delete.agent');
         Route::post('/update/agent', 'UpdateAgent')->name('update.agent');
-
         Route::get("/changeStatus", "changeStatus");
     });
 });
@@ -145,7 +147,8 @@ Route::controller(AgentPropertyController::class)->group(function () {
     Route::post('/store/business/plan', 'StoreBusinessPlan')->name('store.business.plan');
     Route::get('/buy/professional/plan', 'BuyProfessionalPlan')->name('buy.professional.plan');
     Route::post('/store/professional/plan', 'StoreProfessionalPlan')->name('store.professional.plan');
-
+    Route::get('/package/history', 'PackageHistory')->name('package.history');
+    Route::get('/package/history/invoice/{id}', 'PackageHistoryInvoice')->name('package.history.invoice');
 });
 
 require __DIR__ . '/auth.php';

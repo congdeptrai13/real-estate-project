@@ -68,7 +68,10 @@
                                         <td>Status</td>
                                         <td>
                                             @if ($property->status == 1)
-                                                <span class="badge rounded-pill bg-success"> Active </span>
+                                                <span class="badge rounded-pill bg-success"> Active
+                                                </span>Expand/CollapseDatabase operationsinformation_schema
+                                                Expand/Collapse
+                                                Groups laravelpro
                                             @else
                                                 <span class="badge rounded-pill bg-danger"> InActive </span>
                                             @endif

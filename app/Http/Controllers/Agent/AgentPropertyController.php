@@ -16,6 +16,7 @@ use Intervention\Image\Facades\Image;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AgentPropertyController extends Controller
 {
@@ -363,5 +364,22 @@ class AgentPropertyController extends Controller
             "alert-type" => "success"
         ];
         return redirect()->route("agent.all.property")->with($notification);
+    }
+
+    public function PackageHistory()
+    {
+        $id = Auth::id();
+        $packagehistory = PackagePlan::where("user_id", $id)->get();
+        return view("agent.package.package_history", compact("packagehistory"));
+    }
+
+    public function PackageHistoryInvoice($id)
+    {
+        $packhistory = PackagePlan::find($id);
+        $pdf = Pdf::loadView('agent.package.package_history_invoice', compact("packhistory"))->setPaper("a4")->setOption([
+            "tempDir" => public_path(),
+            "chroot" => public_path()
+        ]);
+        return $pdf->download('invoice_' . $packhistory->invoice . '.pdf');
     }
 }
