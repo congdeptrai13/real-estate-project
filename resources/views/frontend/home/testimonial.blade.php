@@ -1,5 +1,5 @@
 <section class="testimonial-section bg-color-1 centred">
-    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-1.png);"></div>
+    <div class="pattern-layer" style="background-image: {{ url('frontend/assets/images/shape/shape-1.png') }}"></div>
     <div class="auto-container">
         <div class="sec-title">
             <h5>Testimonials</h5>

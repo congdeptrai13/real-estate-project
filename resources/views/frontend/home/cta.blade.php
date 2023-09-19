@@ -1,5 +1,5 @@
 <section class="cta-section bg-color-2">
-    <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+    <div class="pattern-layer" style="background-image: {{ url('frontend/assets/images/shape/shape-2.png') }};"></div>
     <div class="auto-container">
         <div class="inner-box clearfix">
             <div class="text pull-left">

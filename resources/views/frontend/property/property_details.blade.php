@@ -39,7 +39,7 @@
                                         src="{{ !empty($property->user->photo) ? url('upload/agent_images/' . $property->user->photo) : url('upload/no_image.jpg') }}"
                                         alt="">
                                 </figure>
-                                <h6>{{ $property->name }}</h6>
+                                <h6>{{ $property->user->name }}</h6>
                             </div>
                         @endif
 
@@ -407,7 +407,8 @@
 
     <!-- subscribe-section -->
     <section class="subscribe-section bg-color-3">
-        <div class="pattern-layer" style="background-image: url(assets/images/shape/shape-2.png);"></div>
+        <div class="pattern-layer" style="background-image: {{ url('frontend/assets/images/shape/shape-2.png') }};">
+        </div>
         <div class="auto-container">
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 text-column">

@@ -8,6 +8,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -27,4 +28,6 @@ class IndexController extends Controller
 
         return view("frontend.property.property_details", compact("property", 'admin', 'multiImage', 'property_amen', 'facilities', 'relatedProperty'));
     }
+
+    
 }

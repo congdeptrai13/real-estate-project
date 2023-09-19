@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -157,4 +158,14 @@ require __DIR__ . '/auth.php';
 
 Route::controller(IndexController::class)->group(function () {
     Route::get("/property/details/{id}/{slug}", "PropertyDetails")->name("property.details");
+});
+
+//wishlist route 
+Route::post("/add-to-wishlist/{property_id}", [WishlistController::class, "AddWishlist"]);
+
+//Wishlist All Route
+Route::middleware('auth')->group(function () {
+    Route::get('/user/wishlist', [WishlistController::class, 'UserWishlist'])->name('user.wishlist');
+    Route::get('/get-all-wishlist/', [WishlistController::class, 'GetAllWishlist']);
+    Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlist']);
 });
