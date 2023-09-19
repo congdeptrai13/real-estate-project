@@ -159,6 +159,7 @@ require __DIR__ . '/auth.php';
 
 Route::controller(IndexController::class)->group(function () {
     Route::get("/property/details/{id}/{slug}", "PropertyDetails")->name("property.details");
+    Route::post("/send/massage", "SendMassage")->name("send.message");
 });
 
 //wishlist route 
