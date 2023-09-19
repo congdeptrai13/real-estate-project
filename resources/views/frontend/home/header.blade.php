@@ -36,7 +36,7 @@
         <div class="outer-box">
             <div class="main-box">
                 <div class="logo-box">
-                    <figure class="logo"><a href="index.html"><img
+                    <figure class="logo"><a href="{{ url('/') }}"><img
                                 src="{{ asset('frontend/assets/images/logo.png') }}" alt=""></a>
                     </figure>
                 </div>
@@ -89,7 +89,7 @@
                                         <li><a href="property-details-4.html">Property Details 04</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="index.html"><span>Pages</span></a>
+                                <li class="dropdown"><a href="{{ url('/') }}"><span>Pages</span></a>
                                     <div class="megamenu">
                                         <div class="row clearfix">
                                             <div class="col-xl-4 column">

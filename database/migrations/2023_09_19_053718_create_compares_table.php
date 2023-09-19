@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('compares', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("property_id");
             $table->timestamps();
         });
     }

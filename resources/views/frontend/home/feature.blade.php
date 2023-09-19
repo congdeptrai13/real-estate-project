@@ -60,7 +60,8 @@
                                         <h4>${{ $item->lowest_price }}</h4>
                                     </div>
                                     <ul class="other-option pull-right clearfix">
-                                        <li><a href="property-details.html"><i class="icon-12"></i></a></li>
+                                        <li><a aria-label="compare" id="{{ $item->id }}"
+                                                onclick="addToCompare(this.id)"><i class="icon-12"></i></a></li>
                                         <li><a aria-label="wishlist" id="{{ $item->id }}"
                                                 onclick="addToWishlist(this.id)"><i class="icon-13"></i></a></li>
                                     </ul>

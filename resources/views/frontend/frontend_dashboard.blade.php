@@ -196,7 +196,7 @@
                     <div class="deals-block-one">
                                     <div class="inner-box">
                                         <div class="image-box">
-                                            <figure class="image"><img src="/${value.property?.property_thumnail}"
+                                            <figure class="image"><img src="/${value.property.property_thumnail}"
                                                     alt=""></figure>
                                             <div class="batch"><i class="icon-11"></i></div>
                                             <span class="category">Featured</span>
@@ -269,6 +269,144 @@
         }
     </script>
 
+    <script type="text/javascript">
+        function addToCompare(property_id) {
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "/add-to-compare/" + property_id,
+                success: function(data) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success,
+                        })
+
+                    } else {
+
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error,
+                        })
+                    }
+
+                    // End Message  
+                }
+            })
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        function ListCompare() {
+
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                url: "/get-all-compare/",
+                success: function(response) {
+                    var rows = '';
+                    $.each(response, function(key, value) {
+                        rows += `
+                        <tr>
+                            <th>Property Info</th>
+                            <th>
+                                <figure class="image-box"><img src="/${value.property.property_thumnail}" alt="">
+                                </figure>
+                                <div class="title">${value.property.property_name}</div>
+                                <div class="price">$${value.property.lowest_price}</div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>City</p>
+                            </td>
+                            <td>
+                                <p>${value.property.city}</p>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Area</p>
+                            </td>
+                            <td>
+                                <p>${value.property.property_size} Sq Ft</p>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Rooms</p>
+                            </td>
+                            <td>${value.property.bedrooms}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Bathrooms</p>
+                            </td>
+                            <td>${value.property.bathrooms}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Action
+                                </td>
+                            <td>
+                                <a type="submit" id=${value.id} onClick="removeCompare(this.id)"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                `;
+                    });
+                    $("#compare").html(rows)
+                }
+            })
+        }
+        ListCompare();
+
+        function removeCompare(id) {
+            $.ajax({
+                method: "GET",
+                dataType: "json",
+                url: "/compare-remove/" + id,
+                success: function(data) {
+                    ListCompare();
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    if ($.isEmptyObject(data.error)) {
+
+                        Toast.fire({
+                            type: 'success',
+                            icon: 'success',
+                            title: data.success,
+                        })
+
+                    } else {
+
+                        Toast.fire({
+                            type: 'error',
+                            icon: 'error',
+                            title: data.error,
+                        })
+                    }
+
+                }
+            })
+        }
+    </script>
 </body><!-- End of .page_wrapper -->
 
 </html>
