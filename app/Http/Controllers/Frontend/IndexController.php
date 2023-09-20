@@ -98,7 +98,7 @@ class IndexController extends Controller
 
     public function RentProperty()
     {
-        $property = Property::where("property_status", "rent")->get();
+        $property = Property::where("property_status", "rent")->paginate(2);
         $buyproperty = Property::where("property_status", "buy")->get();
         $admin = User::where("role", "admin")->first();
 
@@ -120,6 +120,6 @@ class IndexController extends Controller
         $buyproperty = Property::where("property_status", "buy")->get();
         $admin = User::where("role", "admin")->first();
         $pbread = PropertyType::find($id);
-        return view("frontend.property.property_type", compact("property", 'rentproperty', 'buyproperty', "admin",'pbread'));
+        return view("frontend.property.property_type", compact("property", 'rentproperty', 'buyproperty', "admin", 'pbread'));
     }
 }
