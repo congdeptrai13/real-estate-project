@@ -23,8 +23,7 @@
                                 <div class="email-aside-nav collapse">
                                     <ul class="nav flex-column">
                                         <li class="nav-item active">
-                                            <a class="nav-link d-flex align-items-center"
-                                                href="{{ route('agent.property.message') }}">
+                                            <a class="nav-link d-flex align-items-center" href="{{ route("agent.property.message") }}">
                                                 <i data-feather="inbox" class="icon-lg me-2"></i>
                                                 Inbox
                                                 <span class="badge bg-danger fw-bolder ms-auto">{{ count($agent_msg) }}
@@ -75,22 +74,49 @@
                                 </div>
                                 <div class="email-list">
                                     <!-- email list item -->
-                                    @foreach ($agent_msg as $item)
-                                        <div class="email-list-item">
-                                            <a href="{{ route('agent.message.details', $item->id) }}"
-                                                class="email-list-detail">
-                                                <div class="content">
-                                                    <span class="from">{{ $item->user->name }}</span>
-                                                    <p class="msg">{{ $item->message }}</p>
-                                                </div>
-                                                <span class="date">
-                                                    <span class="icon"><i data-feather="paperclip"></i> </span>
-                                                    {{ $item->created_at->format('l M d') }}
-                                                </span>
-                                            </a>
+                                    <p>asdasd</p>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Customer Name:</th>
+                                                            <td>{{ $user_msg->name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Customer Email:</th>
+                                                            <td>{{ $user_msg->email }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Customer Phone:</th>
+                                                            <td>{{ $user_msg->phone }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Property Name:</th>
+                                                            <td>{{ $property_msg->property_name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Property Code:</th>
+                                                            <td>{{ $property_msg->property_code }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Property Status:</th>
+                                                            <td>{{  $property_msg->property_status }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Message:</th>
+                                                            <td>{{ $message->message }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Sending Time:</th>
+                                                            <td>{{ $message->created_at->format("l M d") }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    @endforeach
-
+                                    </div>
 
                                 </div>
                             </div>

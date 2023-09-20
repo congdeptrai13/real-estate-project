@@ -8,6 +8,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\PackagePlan;
 use App\Models\Property;
+use App\Models\PropertyMessage;
 use App\Models\PropertyType;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -381,5 +382,23 @@ class AgentPropertyController extends Controller
             "chroot" => public_path()
         ]);
         return $pdf->download('invoice_' . $packhistory->invoice . '.pdf');
+    }
+
+    public function AgentPropertyMessage()
+    {
+        $id = Auth::id();
+        $agent_msg =  PropertyMessage::where("agent_id", $id)->get();
+        return view("agent.message.all_message", compact("agent_msg"));
+    }
+
+    public function AgentMessageDetails($id)
+    {
+        $message = PropertyMessage::find($id);
+        $user_msg = User::find($message->user_id);
+        $property_msg = Property::find($message->property_id);
+        $agent_id = Auth::id();
+
+        $agent_msg =  PropertyMessage::where("agent_id", $agent_id)->get();
+        return view("agent.message.message_details", compact("user_msg", "property_msg", 'message', 'agent_msg'));
     }
 }
