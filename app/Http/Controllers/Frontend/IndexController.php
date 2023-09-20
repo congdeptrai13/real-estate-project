@@ -8,6 +8,7 @@ use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\PropertyMessage;
+use App\Models\PropertyType;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -64,7 +65,9 @@ class IndexController extends Controller
         $agent = User::find($id);
         $property = Property::where("agent_id", $id)->latest()->get();
         $featured_property = Property::where("featured", "1")->limit(3)->latest()->get();
-        return view("frontend.agent.agent_details", compact("agent", 'property', 'featured_property'));
+        $rentproperty = Property::where("property_status", "rent")->get();
+        $buyproperty = Property::where("property_status", "buy")->get();
+        return view("frontend.agent.agent_details", compact("agent", 'property', 'featured_property', 'rentproperty', 'buyproperty'));
     }
 
     public function AgentSendMassage(Request $request)
@@ -91,5 +94,32 @@ class IndexController extends Controller
             ];
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function RentProperty()
+    {
+        $property = Property::where("property_status", "rent")->get();
+        $buyproperty = Property::where("property_status", "buy")->get();
+        $admin = User::where("role", "admin")->first();
+
+        return view("frontend.property.rent_property", compact("property", 'buyproperty', 'admin'));
+    }
+    public function BuyProperty()
+    {
+        $property = Property::where("property_status", "buy")->get();
+        $rentproperty = Property::where("property_status", "rent")->get();
+        $admin = User::where("role", "admin")->first();
+
+        return view("frontend.property.buy_property", compact("property", 'rentproperty', 'admin'));
+    }
+
+    public function PropertyType($id)
+    {
+        $property = Property::where("ptype_id", $id)->get();
+        $rentproperty = Property::where("property_status", "rent")->get();
+        $buyproperty = Property::where("property_status", "buy")->get();
+        $admin = User::where("role", "admin")->first();
+        $pbread = PropertyType::find($id);
+        return view("frontend.property.property_type", compact("property", 'rentproperty', 'buyproperty', "admin",'pbread'));
     }
 }

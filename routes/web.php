@@ -188,5 +188,13 @@ Route::middleware('auth')->group(function () {
 
 // route details property agent
 Route::get("agent/details/{id}", [IndexController::class, "AgentDetails"])->name("agent.details");
-Route::post("/agent/send/massage", [IndexController::class,"AgentSendMassage"])->name("agent.send.message");
+Route::post("/agent/send/massage", [IndexController::class, "AgentSendMassage"])->name("agent.send.message");
 
+//get all route rent property
+Route::get("/rent/property", [IndexController::class, "RentProperty"])->name("rent.property");
+
+//get all route buy property
+Route::get("/buy/property", [IndexController::class, "BuyProperty"])->name("buy.property");
+
+//get all type property
+Route::get("property/type/{id}", [IndexController::class, "PropertyType"])->name("property.type");
