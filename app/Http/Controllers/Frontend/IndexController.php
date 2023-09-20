@@ -58,4 +58,38 @@ class IndexController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+    public function AgentDetails($id)
+    {
+        $agent = User::find($id);
+        $property = Property::where("agent_id", $id)->latest()->get();
+        $featured_property = Property::where("featured", "1")->limit(3)->latest()->get();
+        return view("frontend.agent.agent_details", compact("agent", 'property', 'featured_property'));
+    }
+
+    public function AgentSendMassage(Request $request)
+    {
+        $aid = $request->agent_id;
+        if (Auth::check()) {
+            PropertyMessage::create([
+                "user_id" => Auth::id(),
+                "agent_id" => $aid,
+                'msg_name' => $request->msg_name,
+                "msg_email" => $request->msg_email,
+                'msg_phone' => $request->msg_phone,
+                'message' => $request->message
+            ]);
+            $notification = [
+                "message" => "Send Message Successfully",
+                "alert-type" => "success"
+            ];
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = [
+                "message" => "You need to login first",
+                "alert-type" => "error"
+            ];
+            return redirect()->back()->with($notification);
+        }
+    }
 }

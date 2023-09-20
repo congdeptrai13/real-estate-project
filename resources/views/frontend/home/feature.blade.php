@@ -45,7 +45,6 @@
                                             </figure>
                                             <h6>{{ $item->user->name }}</h6>
                                         @endif
-
                                     </div>
                                     <div class="buy-btn pull-right"><a href="property-details.html">For
                                             {{ $item->property_status }}</a>

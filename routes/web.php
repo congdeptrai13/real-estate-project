@@ -184,3 +184,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-all-compare/', [CompareController::class, 'GetAllCompare']);
     Route::get('/compare-remove/{id}', [CompareController::class, 'RemoveCompare']);
 });
+
+
+// route details property agent
+Route::get("agent/details/{id}", [IndexController::class, "AgentDetails"])->name("agent.details");
+Route::post("/agent/send/massage", [IndexController::class,"AgentSendMassage"])->name("agent.send.message");
+
