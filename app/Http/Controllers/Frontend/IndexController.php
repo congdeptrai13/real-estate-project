@@ -130,6 +130,42 @@ class IndexController extends Controller
         $breadState = State::find($id)->state_name;
         $rentproperty = Property::where("property_status", "rent")->get();
         $buyproperty = Property::where("property_status", "buy")->get();
-        return view("frontend.property.state_property", compact('breadState', 'rentproperty', 'buyproperty','property'));
+        return view("frontend.property.state_property", compact('breadState', 'rentproperty', 'buyproperty', 'property'));
+    }
+
+    public function BuyPropertySearch(Request $request)
+    {
+        $request->validate(['search' => 'required']);
+        $item = $request->search;
+        $sstate = $request->state;
+        $sptype = $request->ptype_id;
+        $rentproperty = Property::where("property_status", "rent")->get();
+
+        $property = Property::where("property_name", "like", "%" . $item . "%")->where("property_status", "buy")->with("type", "pstate")
+            ->whereHas("pstate", function ($q) use ($sstate) {
+                $q->where("state_name", "like", "%" . $sstate . "%");
+            })
+            ->whereHas("type", function ($q) use ($sptype) {
+                $q->where("type_name", "like", "%" . $sptype . "%");
+            })->get();
+        return view("frontend.property.search_property", compact("property", 'rentproperty'));
+    }
+
+    public function RentPropertySearch(Request $request)
+    {
+        $request->validate(['search' => 'required']);
+        $item = $request->search;
+        $sstate = $request->state;
+        $sptype = $request->ptype_id;
+        $rentproperty = Property::where("property_status", "buy")->get();
+
+        $property = Property::where("property_name", "like", "%" . $item . "%")->where("property_status", "rent")->with("type", "pstate")
+            ->whereHas("pstate", function ($q) use ($sstate) {
+                $q->where("state_name", "like", "%" . $sstate . "%");
+            })
+            ->whereHas("type", function ($q) use ($sptype) {
+                $q->where("type_name", "like", "%" . $sptype . "%");
+            })->get();
+        return view("frontend.property.search_property", compact("property", 'rentproperty'));
     }
 }

@@ -215,3 +215,8 @@ Route::get("property/type/{id}", [IndexController::class, "PropertyType"])->name
 
 //all State Details Page
 Route::get("state/details/{id}", [IndexController::class, "StateDetails"])->name("state.details");
+
+
+//all route search options
+Route::post("buy/property/search",[IndexController::class,"BuyPropertySearch"])->name("buy.property.search");
+Route::post("rent/property/search",[IndexController::class,"RentPropertySearch"])->name("rent.property.search");
