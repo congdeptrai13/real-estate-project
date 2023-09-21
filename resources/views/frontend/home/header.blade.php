@@ -69,7 +69,7 @@
                                 <li><a href="{{ url('/') }}"><span>Contact</span></a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/') }}" class="btn btn-success"><span>+</span>Add
+                                    <a href="{{ route('agent.login') }}" class="btn btn-success"><span>+</span>Add
                                         Listing</a>
                                 </li>
 

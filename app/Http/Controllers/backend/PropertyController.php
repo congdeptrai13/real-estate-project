@@ -10,6 +10,7 @@ use App\Models\PackagePlan;
 use App\Models\Property;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\State;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -30,9 +31,10 @@ class PropertyController extends Controller
     public function AddProperty()
     {
         $propertyType = PropertyType::latest()->get();
+        $propertyState = State::latest()->get();
         $amenities = Amenities::latest()->get();
         $activeAgent = User::where("status", "active")->where("role", "agent")->latest()->get();
-        return view("backend.property.add_property", compact("propertyType", "amenities", "activeAgent"));
+        return view("backend.property.add_property", compact("propertyType", "amenities", "activeAgent",'propertyState'));
     }
 
     public function StoreProperty(Request $request)
@@ -120,7 +122,9 @@ class PropertyController extends Controller
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
         $activeAgent = User::where("status", "active")->where("role", "agent")->latest()->get();
-        return view("backend.property.edit_property", compact("property", "propertyType", "amenities", "activeAgent", 'property_ami', 'multiImage', 'facilities'));
+        $propertyState = State::latest()->get();
+
+        return view("backend.property.edit_property", compact("property", "propertyType", "amenities", "activeAgent", 'property_ami', 'multiImage', 'facilities','propertyState'));
     }
 
     public function UpdateProperty(Request $request)

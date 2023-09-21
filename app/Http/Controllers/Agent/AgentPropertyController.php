@@ -10,6 +10,7 @@ use App\Models\PackagePlan;
 use App\Models\Property;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +34,15 @@ class AgentPropertyController extends Controller
     {
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
+        $propertyState = State::latest()->get();
+
         $id = Auth::id();
         $property = User::where("role", "agent")->where("id", $id)->first();
         $pcount = $property->credit;
         if ($pcount == 1 || $pcount == 7) {
             return view("agent.package.buy_package");
         } else {
-            return view("agent.property.add_property", compact("propertyType", "amenities"));
+            return view("agent.property.add_property", compact("propertyType", "amenities",'propertyState'));
         }
     }
 
@@ -135,7 +138,9 @@ class AgentPropertyController extends Controller
         $property_ami = explode(',', $type);
         $propertyType = PropertyType::latest()->get();
         $amenities = Amenities::latest()->get();
-        return view("agent.property.edit_property", compact("property", "propertyType", "amenities", 'property_ami', 'multiImage', 'facilities'));
+        $propertyState = State::latest()->get();
+
+        return view("agent.property.edit_property", compact("property", "propertyType", "amenities", 'property_ami', 'multiImage', 'facilities','propertyState'));
     }
 
     public function AgentUpdateProperty(Request $request)

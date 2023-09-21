@@ -53,7 +53,7 @@
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td><code>{{ $property->state }}</code></td>
+                                        <td><code>{{ $property->pstate->state_name }}</code></td>
                                     </tr>
                                     <tr>
                                         <td>Postal Code</td>
@@ -69,9 +69,7 @@
                                         <td>
                                             @if ($property->status == 1)
                                                 <span class="badge rounded-pill bg-success"> Active
-                                                </span>Expand/CollapseDatabase operationsinformation_schema
-                                                Expand/Collapse
-                                                Groups laravelpro
+                                                </span>
                                             @else
                                                 <span class="badge rounded-pill bg-danger"> InActive </span>
                                             @endif

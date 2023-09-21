@@ -58,6 +58,25 @@
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#state" role="button" aria-expanded="false"
+                    aria-controls="state">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Property State</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="state">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.state') }}" class="nav-link">All State</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('add.state') }}" class="nav-link">Add State</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false"
                     aria-controls="property">
                     <i class="link-icon" data-feather="mail"></i>
@@ -90,8 +109,8 @@
             </li>
             <li class="nav-item nav-category">USER ALL FUNCTION </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false"
-                    aria-controls="uiComponents">
+                <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button"
+                    aria-expanded="false" aria-controls="uiComponents">
                     <i class="link-icon" data-feather="feather"></i>
                     <span class="link-title">
                         Manage Agent
