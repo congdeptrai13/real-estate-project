@@ -9,6 +9,7 @@ use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\State;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -121,5 +122,14 @@ class IndexController extends Controller
         $admin = User::where("role", "admin")->first();
         $pbread = PropertyType::find($id);
         return view("frontend.property.property_type", compact("property", 'rentproperty', 'buyproperty', "admin", 'pbread'));
+    }
+
+    public function StateDetails($id)
+    {
+        $property = Property::where("status", "1")->where("state", $id)->latest()->paginate();
+        $breadState = State::find($id)->state_name;
+        $rentproperty = Property::where("property_status", "rent")->get();
+        $buyproperty = Property::where("property_status", "buy")->get();
+        return view("frontend.property.state_property", compact('breadState', 'rentproperty', 'buyproperty','property'));
     }
 }

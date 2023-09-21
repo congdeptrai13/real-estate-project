@@ -211,3 +211,7 @@ Route::get("/buy/property", [IndexController::class, "BuyProperty"])->name("buy.
 
 //get all type property
 Route::get("property/type/{id}", [IndexController::class, "PropertyType"])->name("property.type");
+
+
+//all State Details Page
+Route::get("state/details/{id}", [IndexController::class, "StateDetails"])->name("state.details");
