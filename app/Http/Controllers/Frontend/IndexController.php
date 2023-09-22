@@ -168,4 +168,27 @@ class IndexController extends Controller
             })->get();
         return view("frontend.property.search_property", compact("property", 'rentproperty'));
     }
+
+
+    public function AllPropertySearch(Request $request)
+    {
+        $property_status = $request->property_status;
+        $sstate = $request->state;
+        $sptype = $request->ptype_id;
+        $bedrooms = $request->bedrooms;
+        $bathrooms = $request->bathrooms;
+        $rentproperty = Property::where("property_status", "buy")->get();
+
+        $property = Property::where("status", "1")
+            ->where("bedrooms", $bedrooms)
+            ->where('bathrooms', $bathrooms)
+            ->where("property_status", $property_status)->with("type", "pstate")
+            ->whereHas("pstate", function ($q) use ($sstate) {
+                $q->where("state_name", "like", "%" . $sstate . "%");
+            })
+            ->whereHas("type", function ($q) use ($sptype) {
+                $q->where("type_name", "like", "%" . $sptype . "%");
+            })->get();
+        return view("frontend.property.search_property", compact("property", 'rentproperty'));
+    }
 }
