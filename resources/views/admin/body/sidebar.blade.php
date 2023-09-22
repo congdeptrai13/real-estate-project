@@ -95,25 +95,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#blogcategory" role="button"
-                    aria-expanded="false" aria-controls="blogcategory">
-                    <i class="link-icon" data-feather="mail"></i>
-                    <span class="link-title">Blog Category</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse" id="blogcategory">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('all.blog.category') }}" class="nav-link">All Blog Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('add.testimonial') }}" class="nav-link">Add Testimonial</a>
-                        </li>
 
-                    </ul>
-                </div>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#property" role="button" aria-expanded="false"
                     aria-controls="property">
@@ -166,6 +148,40 @@
                     </ul>
                 </div>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#blogcategory" role="button"
+                    aria-expanded="false" aria-controls="blogcategory">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Blog Category</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="blogcategory">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.blog.category') }}" class="nav-link">All Blog Category</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#blogpost" role="button" aria-expanded="false"
+                    aria-controls="blogpost">
+                    <i class="link-icon" data-feather="mail"></i>
+                    <span class="link-title">Blog Post</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="blogpost">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('all.blog.post') }}" class="nav-link">All Blog Post</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
+
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#advancedUI" role="button"
                     aria-expanded="false" aria-controls="advancedUI">

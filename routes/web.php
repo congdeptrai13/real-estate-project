@@ -248,5 +248,12 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
         Route::post('/store/category', 'StoreBlogCategory')->name('store.blog.category');
         Route::post('/update/category/', 'UpdateBlogCategory')->name('update.blog.category');
+
+        Route::get('/all/post', 'AllBlogPost')->name("all.blog.post");
+        Route::get('/add/post', 'AddBlogPost')->name("add.blog.post");
+        Route::get('/edit/post/{id}', 'EditBlogPost')->name("edit.blog.post");
+        Route::post('/store/post', 'StoreBlogPost')->name('store.blog.post');
+        Route::post('/update/post', 'UpdatePost')->name('update.post');
+        Route::get("delete/post/{id}", 'DeletePost')->name('delete.post');
     });
 });
