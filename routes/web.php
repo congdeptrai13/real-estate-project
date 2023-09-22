@@ -6,12 +6,14 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\backend\StateController;
+use App\Http\Controllers\backend\TestimonialController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -223,3 +225,16 @@ Route::post("rent/property/search", [IndexController::class, "RentPropertySearch
 
 //route all search options
 Route::post("all/property/search", [IndexController::class, "AllPropertySearch"])->name("all.property.search");
+
+
+//admin manage All testimonials route
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(TestimonialController::class)->group(function () {
+        Route::get('/all/testimonial', 'AllTestimonial')->name('all.testimonial');
+        Route::get('/add/testimonial', 'AddTestimonial')->name('add.testimonial');
+        Route::post("/store/testimonial", "StoreTestimonial")->name("store.testimonial");
+        Route::get('/edit/testimonial/{id}', 'EditTestimonial')->name('edit.testimonial');
+        Route::post('/update/testimonial', 'UpdateTestimonial')->name('update.testimonial');
+        Route::get('/delete/testimonial/{id}', 'DeleteTestimonial')->name('delete.testimonial');
+    });
+});
