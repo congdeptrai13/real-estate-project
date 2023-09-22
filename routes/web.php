@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\backend\StateController;
@@ -236,5 +237,16 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get('/edit/testimonial/{id}', 'EditTestimonial')->name('edit.testimonial');
         Route::post('/update/testimonial', 'UpdateTestimonial')->name('update.testimonial');
         Route::get('/delete/testimonial/{id}', 'DeleteTestimonial')->name('delete.testimonial');
+    });
+});
+
+
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/all/category', 'AllBlogCategory')->name('all.blog.category');
+        Route::get('/edit/category/{id}', 'EditCategory');
+        Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+        Route::post('/store/category', 'StoreBlogCategory')->name('store.blog.category');
+        Route::post('/update/category/', 'UpdateBlogCategory')->name('update.blog.category');
     });
 });
