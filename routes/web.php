@@ -263,3 +263,5 @@ Route::get("blog/details/{slug}", [IndexController::class, "BlogDetails"]);
 
 Route::get("blog/cat/list/{id}", [IndexController::class, "BlogCatList"]);
 Route::get("/blog", [IndexController::class, "BlogList"]);
+
+Route::post("store/comment", [IndexController::class, 'StoreComment'])->name('store.comment');

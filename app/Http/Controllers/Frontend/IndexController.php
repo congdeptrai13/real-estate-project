@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenities;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
@@ -218,5 +219,23 @@ class IndexController extends Controller
         $cats = Category::latest()->get();
         $otherPost = BlogPost::limit(3)->get();
         return view('frontend.blog.blog_list', compact("post", 'cats', 'otherPost'));
+    }
+
+    public function StoreComment(Request $request)
+    {
+        $pid = $request->post_id;
+        Comment::create([
+            "user_id" => Auth::id(),
+            "post_id" => $pid,
+            "parent_id" => null,
+            "subject" => $request->subject,
+            "message" => $request->message,
+
+        ]);
+        $notification = [
+            "message" => "Create Comment successfully",
+            "alert-type" => "successfully"
+        ];
+        return redirect()->back()->with($notification);
     }
 }

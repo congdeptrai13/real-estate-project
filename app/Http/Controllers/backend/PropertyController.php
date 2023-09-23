@@ -177,7 +177,7 @@ class PropertyController extends Controller
             "property_thumnail" => $save_url
         ]);
         if (file_exists($oldImage)) {
-            unlink($oldImage);
+            @unlink($oldImage);
         }
         $notification = [
             "message" => "Property Image updated successfully",
@@ -191,7 +191,7 @@ class PropertyController extends Controller
         $imgs = $request->multiImg;
         foreach ($imgs as $id => $img) {
             $imgDel = MultiImage::find($id);
-            unlink($imgDel->photo_name);
+            @unlink($imgDel->photo_name);
             $make_name = hexdec(uniqid()) . "." . $img->getClientOriginalExtension();
             Image::make($img)->resize(770, 520)->save("upload/property/multi-image/" . $make_name);
             $uploadPath = "upload/property/multi-image/" . $make_name;
@@ -209,7 +209,7 @@ class PropertyController extends Controller
     public function PropertyMultiImageDelete($id)
     {
         $oldImg = MultiImage::find($id);
-        unlink($oldImg->photo_name);
+        @unlink($oldImg->photo_name);
         MultiImage::find($id)->delete();
         $notification = [
             "message" => "Property Multi Image deleted successfully",
@@ -262,12 +262,12 @@ class PropertyController extends Controller
     public function DeleteProperty($id)
     {
         $property = Property::find($id);
-        unlink($property->property_thumnail);
+        @unlink($property->property_thumnail);
         Property::find($id)->delete();
 
         $multiImage = MultiImage::where("property_id", $id)->get();
         foreach ($multiImage as $img) {
-            unlink($img->photo_name);
+            @unlink($img->photo_name);
             MultiImage::where("property_id", $id)->delete();
         }
 

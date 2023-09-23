@@ -193,7 +193,7 @@ class AgentPropertyController extends Controller
             "property_thumnail" => $save_url
         ]);
         if (file_exists($oldImage)) {
-            unlink($oldImage);
+            @unlink($oldImage);
         }
         $notification = [
             "message" => "Property Image updated successfully",
@@ -207,7 +207,7 @@ class AgentPropertyController extends Controller
         $imgs = $request->multiImg;
         foreach ($imgs as $id => $img) {
             $imgDel = MultiImage::find($id);
-            unlink($imgDel->photo_name);
+            @unlink($imgDel->photo_name);
             $make_name = hexdec(uniqid()) . "." . $img->getClientOriginalExtension();
             Image::make($img)->resize(770, 520)->save("upload/property/multi-image/" . $make_name);
             $uploadPath = "upload/property/multi-image/" . $make_name;
@@ -295,7 +295,7 @@ class AgentPropertyController extends Controller
 
         $multiImage = MultiImage::where("property_id", $id)->get();
         foreach ($multiImage as $img) {
-            unlink($img->photo_name);
+            @unlink($img->photo_name);
             MultiImage::where("property_id", $id)->delete();
         }
 
