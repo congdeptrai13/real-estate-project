@@ -257,3 +257,6 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         Route::get("delete/post/{id}", 'DeletePost')->name('delete.post');
     });
 });
+
+//route all search options
+Route::get("blog/details/{slug}", [IndexController::class, "BlogDetails"]);

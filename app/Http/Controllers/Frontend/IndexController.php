@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenities;
+use App\Models\BlogPost;
+use App\Models\Category;
 use App\Models\Facility;
 use App\Models\MultiImage;
 use App\Models\Property;
@@ -190,5 +192,14 @@ class IndexController extends Controller
                 $q->where("type_name", "like", "%" . $sptype . "%");
             })->get();
         return view("frontend.property.search_property", compact("property", 'rentproperty'));
+    }
+
+    public function BlogDetails($slug)
+    {
+        $post = BlogPost::where("post_slug", $slug)->first();
+        $tags = explode(',', $post->post_tags);
+        $cats = Category::latest()->get();
+        $otherPost = BlogPost::where("id", "!=", $post->id)->limit(3)->get();
+        return view("frontend.blog.blog_details", compact('post', 'tags', 'cats', 'otherPost'));
     }
 }
