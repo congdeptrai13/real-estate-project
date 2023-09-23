@@ -202,4 +202,21 @@ class IndexController extends Controller
         $otherPost = BlogPost::where("id", "!=", $post->id)->limit(3)->get();
         return view("frontend.blog.blog_details", compact('post', 'tags', 'cats', 'otherPost'));
     }
+
+    public function BlogCatList($id)
+    {
+        $post = BlogPost::where("blogcat_id", $id)->get();
+        $cats = Category::latest()->get();
+        $breadcat = Category::find($id);
+        $otherPost = BlogPost::limit(3)->get();
+        return view('frontend.blog.blog_cat_list', compact("post", 'cats', 'otherPost', 'breadcat'));
+    }
+
+    public function BlogList()
+    {
+        $post = BlogPost::latest()->get();
+        $cats = Category::latest()->get();
+        $otherPost = BlogPost::limit(3)->get();
+        return view('frontend.blog.blog_list', compact("post", 'cats', 'otherPost'));
+    }
 }

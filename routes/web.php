@@ -258,5 +258,8 @@ Route::middleware(["auth", "role:admin"])->group(function () {
     });
 });
 
-//route all search options
+//Route all blog post
 Route::get("blog/details/{slug}", [IndexController::class, "BlogDetails"]);
+
+Route::get("blog/cat/list/{id}", [IndexController::class, "BlogCatList"]);
+Route::get("/blog", [IndexController::class, "BlogList"]);

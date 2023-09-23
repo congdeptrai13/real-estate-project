@@ -184,7 +184,7 @@
                                             $catNumber = App\Models\BlogPost::where('blogcat_id', $cat->id)->get();
                                         @endphp
                                         <li><a
-                                                href="blog-details.html">{{ $cat->category_name }}<span>({{ count($catNumber) }})</span></a>
+                                                href="{{ url('blog/cat/list/' . $cat->id) }}">{{ $cat->category_name }}<span>({{ count($catNumber) }})</span></a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -210,36 +210,7 @@
 
                             </div>
                         </div>
-                        <div class="sidebar-widget category-widget">
-                            <div class="widget-title">
-                                <h4>Archives</h4>
-                            </div>
-                            <div class="widget-content">
-                                <ul class="category-list clearfix">
-                                    <li><a href="blog-details.html">November 2016<span>(9)</span></a></li>
-                                    <li><a href="blog-details.html">November 2017<span>(5)</span></a></li>
-                                    <li><a href="blog-details.html">November 2018<span>(2)</span></a></li>
-                                    <li><a href="blog-details.html">November 2019<span>(7)</span></a></li>
-                                    <li><a href="blog-details.html">November 2020<span>(3)</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sidebar-widget tags-widget">
-                            <div class="widget-title">
-                                <h4>Popular Tags</h4>
-                            </div>
-                            <div class="widget-content">
-                                <ul class="tags-list clearfix">
-                                    <li><a href="blog-details.html">Real Estate</a></li>
-                                    <li><a href="blog-details.html">HouseHunting</a></li>
-                                    <li><a href="blog-details.html">Architecture</a></li>
-                                    <li><a href="blog-details.html">Interior</a></li>
-                                    <li><a href="blog-details.html">Sale</a></li>
-                                    <li><a href="blog-details.html">Rent Home</a></li>
-                                    <li><a href="blog-details.html">Listing</a></li>
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

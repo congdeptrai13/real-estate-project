@@ -64,7 +64,7 @@
                                 </li>
                                 <li><a href="{{ url('/') }}"><span>Agency</span></a>
                                 </li>
-                                <li><a href="{{ url('/') }}"><span>Blog</span></a>
+                                <li><a href="{{ url('/blog') }}"><span>Blog</span></a>
                                 </li>
                                 <li><a href="{{ url('/') }}"><span>Contact</span></a>
                                 </li>
