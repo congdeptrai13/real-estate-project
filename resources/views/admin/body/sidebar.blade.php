@@ -185,6 +185,12 @@
                     <span class="link-title">Blog Comment</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('setting.smtp') }}" class="nav-link">
+                    <i class="link-icon" data-feather="calendar"></i>
+                    <span class="link-title">Setting SMTP</span>
+                </a>
+            </li>
 
 
             <li class="nav-item">

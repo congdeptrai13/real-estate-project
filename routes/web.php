@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
+use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\StateController;
 use App\Http\Controllers\backend\TestimonialController;
 use App\Http\Controllers\Frontend\BlogController;
@@ -276,3 +277,11 @@ Route::get("admin/reply/comment/{id}", [BlogController::class, 'BlogReplyComment
 Route::post("admin/reply/comment", [BlogController::class, 'ReplyComment'])->name('admin.store.comment');
 
 Route::post("store/schedule", [IndexController::class, "StoreSchedule"])->name("store.schedule");
+
+//setting smtp route
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(SettingController::class)->group(function () {
+        Route::get('/setting/smtp', 'SettingSmtp')->name('setting.smtp');
+        Route::post('/update/smtp/mailer', 'UpdateSmtpMailer')->name('update.smtp.mailer');
+    });
+});
