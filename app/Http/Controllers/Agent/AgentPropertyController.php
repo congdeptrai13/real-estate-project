@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ScheduleMail;
 use App\Models\Amenities;
 use App\Models\Facility;
 use App\Models\MultiImage;
@@ -10,6 +11,7 @@ use App\Models\PackagePlan;
 use App\Models\Property;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\Schedule;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +21,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class AgentPropertyController extends Controller
 {
@@ -42,7 +45,7 @@ class AgentPropertyController extends Controller
         if ($pcount == 1 || $pcount == 7) {
             return view("agent.package.buy_package");
         } else {
-            return view("agent.property.add_property", compact("propertyType", "amenities",'propertyState'));
+            return view("agent.property.add_property", compact("propertyType", "amenities", 'propertyState'));
         }
     }
 
@@ -140,7 +143,7 @@ class AgentPropertyController extends Controller
         $amenities = Amenities::latest()->get();
         $propertyState = State::latest()->get();
 
-        return view("agent.property.edit_property", compact("property", "propertyType", "amenities", 'property_ami', 'multiImage', 'facilities','propertyState'));
+        return view("agent.property.edit_property", compact("property", "propertyType", "amenities", 'property_ami', 'multiImage', 'facilities', 'propertyState'));
     }
 
     public function AgentUpdateProperty(Request $request)
@@ -405,5 +408,42 @@ class AgentPropertyController extends Controller
 
         $agent_msg =  PropertyMessage::where("agent_id", $agent_id)->get();
         return view("agent.message.message_details", compact("user_msg", "property_msg", 'message', 'agent_msg'));
+    }
+
+    public function AgentScheduleRequest()
+    {
+        $id = Auth::id();
+        $schedules = Schedule::where("agent_id", $id)->get();
+        return view("agent.request.all_request", compact("schedules"));
+    }
+
+    public function AgentDetailsSchedule($id)
+    {
+        $request = Schedule::find($id);
+        return view("agent.request.request_details", compact("request"));
+    }
+
+    public function AgentUpdateSchedule(Request $request)
+    {
+
+        Schedule::find($request->request_id)->update([
+            "status" => 1
+        ]);
+
+        //send mail
+
+        $schedule = Schedule::find($request->request_id);
+        $data = [
+            "tour_date" => $schedule->tour_date,
+            "tour_time" => $schedule->tour_time,
+        ];
+
+        Mail::to($request->email)->send(new ScheduleMail($data));
+        //end send mail
+        $notification = [
+            "message" => "Request update successfully",
+            "alert-type" => "success"
+        ];
+        return redirect()->route("agent.schedule.request")->with($notification);
     }
 }
