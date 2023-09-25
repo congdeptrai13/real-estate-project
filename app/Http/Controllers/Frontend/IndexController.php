@@ -221,21 +221,5 @@ class IndexController extends Controller
         return view('frontend.blog.blog_list', compact("post", 'cats', 'otherPost'));
     }
 
-    public function StoreComment(Request $request)
-    {
-        $pid = $request->post_id;
-        Comment::create([
-            "user_id" => Auth::id(),
-            "post_id" => $pid,
-            "parent_id" => null,
-            "subject" => $request->subject,
-            "message" => $request->message,
-
-        ]);
-        $notification = [
-            "message" => "Create Comment successfully",
-            "alert-type" => "successfully"
-        ];
-        return redirect()->back()->with($notification);
-    }
+   
 }

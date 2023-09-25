@@ -8,6 +8,7 @@ use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\backend\StateController;
 use App\Http\Controllers\backend\TestimonialController;
+use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CompareController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\WishlistController;
@@ -264,4 +265,7 @@ Route::get("blog/details/{slug}", [IndexController::class, "BlogDetails"]);
 Route::get("blog/cat/list/{id}", [IndexController::class, "BlogCatList"]);
 Route::get("/blog", [IndexController::class, "BlogList"]);
 
-Route::post("store/comment", [IndexController::class, 'StoreComment'])->name('store.comment');
+Route::post("store/comment", [BlogController::class, 'StoreComment'])->name('store.comment');
+Route::get("admin/blog/comment", [BlogController::class, 'AllBlogComment'])->name('admin.blog.comment');
+Route::get("admin/reply/comment/{id}", [BlogController::class, 'BlogReplyComment'])->name('admin.reply.comment');
+Route::post("admin/reply/comment", [BlogController::class, 'ReplyComment'])->name('admin.store.comment');
