@@ -12,6 +12,7 @@ use App\Models\MultiImage;
 use App\Models\Property;
 use App\Models\PropertyMessage;
 use App\Models\PropertyType;
+use App\Models\Schedule;
 use App\Models\State;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -221,5 +222,31 @@ class IndexController extends Controller
         return view('frontend.blog.blog_list', compact("post", 'cats', 'otherPost'));
     }
 
-   
+    public function StoreSchedule(Request $request)
+    {
+        $aid = $request->agent_id;
+        $pid = $request->property_id;
+
+        if (Auth::check()) {
+            Schedule::create([
+                "user_id" => Auth::id(),
+                "property_id" => $pid,
+                "agent_id" => $aid,
+                "tour_date" => $request->tour_date,
+                "tour_time" => $request->tour_time,
+                "message" => $request->message
+            ]);
+            $notification = [
+                "message" => "Request send successfully",
+                "alert-type" => "success"
+            ];
+            return redirect()->back()->with($notification);
+        } else {
+            $notification = [
+                "message" => "You need to login first",
+                "alert-type" => "error"
+            ];
+            return redirect()->back()->with($notification);
+        }
+    }
 }

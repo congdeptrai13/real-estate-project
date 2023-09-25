@@ -269,3 +269,5 @@ Route::post("store/comment", [BlogController::class, 'StoreComment'])->name('sto
 Route::get("admin/blog/comment", [BlogController::class, 'AllBlogComment'])->name('admin.blog.comment');
 Route::get("admin/reply/comment/{id}", [BlogController::class, 'BlogReplyComment'])->name('admin.reply.comment');
 Route::post("admin/reply/comment", [BlogController::class, 'ReplyComment'])->name('admin.store.comment');
+
+Route::post("store/schedule", [IndexController::class, "StoreSchedule"])->name("store.schedule");
