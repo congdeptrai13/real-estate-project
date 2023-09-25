@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,5 +93,13 @@ class UserController extends Controller
             "alert-type" => "success"
         ];
         return back()->with($notification);
+    }
+
+    public function UserRequest()
+    {
+        $id = Auth::id();
+        $userData = User::find($id);
+        $userRequest = Schedule::where("user_id", $id)->get();
+        return view("frontend.message.schedule_request", compact("userData", 'userRequest'));
     }
 }

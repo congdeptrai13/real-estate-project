@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/change/password', [UserController::class, 'UserChangePassword'])->name('user.change.password');
     Route::post('/user/profile/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
+    Route::get("user/request", [UserController::class, "UserRequest"])->name('user.request');
 });
 
 Route::middleware(["auth", "role:admin"])->group(function () {
