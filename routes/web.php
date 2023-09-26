@@ -284,5 +284,9 @@ Route::middleware(["auth", "role:admin"])->group(function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting/smtp', 'SettingSmtp')->name('setting.smtp');
         Route::post('/update/smtp/mailer', 'UpdateSmtpMailer')->name('update.smtp.mailer');
+
+        //site setting route
+        Route::get('/site/setting', 'SiteSetting')->name('site.setting');
+        Route::post('update/site/setting', 'UpdateSiteSetting')->name('update.site.setting');
     });
 });

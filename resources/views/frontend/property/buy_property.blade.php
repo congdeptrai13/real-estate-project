@@ -1,5 +1,8 @@
 @extends('frontend.frontend_dashboard')
 @section('main')
+@section('title')
+Buy Property | Easy RealEstate
+@endsection
     @php
         $states = App\Models\State::all();
         $ptypes = App\Models\PropertyType::all();
