@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
+use App\Http\Controllers\backend\RoleController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\StateController;
 use App\Http\Controllers\backend\TestimonialController;
@@ -288,5 +289,19 @@ Route::middleware(["auth", "role:admin"])->group(function () {
         //site setting route
         Route::get('/site/setting', 'SiteSetting')->name('site.setting');
         Route::post('update/site/setting', 'UpdateSiteSetting')->name('update.site.setting');
+    });
+});
+
+
+//Role & permisson route
+Route::middleware(["auth", "role:admin"])->group(function () {
+    Route::controller(RoleController::class)->group(function () {
+        Route::get('/all/permission', 'AllPermission')->name('all.permission');
+        Route::get('/add/permission', 'AddPermission')->name('add.permission');
+        Route::post('/store/permission', 'StorePermission')->name('store.permission');
+        Route::get('/edit/permission/{id}', 'EditPermission')->name('edit.permission');
+        Route::post('/update/permission/', 'UpdatePermission')->name('update.permission');
+        Route::get('/delete/permission/{id}', 'DeletePermission')->name('delete.permission');
+
     });
 });
