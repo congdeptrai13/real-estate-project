@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -44,4 +45,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public static function getGroupPermission()
+    {
+        return DB::table('permissions')->select("group_name")->groupBy("group_name")->get();
+    }
+
+    public static function getPermissionByGroupname($group_name)
+    {
+        return DB::table('permissions')->where("group_name", $group_name)->select("name", "id")->get();
+    }
+
+    public static function hasRolesPermission($role, $permissions)
+    {
+        $result = false;
+        foreach ($permissions as $permission) {
+            if ($role->hasPermissionTo($permission->name)) {
+                $result = true;
+            }
+        }
+        return $result;
+    }
 }
