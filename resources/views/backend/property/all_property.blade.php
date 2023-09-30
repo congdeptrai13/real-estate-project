@@ -1,13 +1,13 @@
 @extends('admin.admin_dashboard')
 @section('admin')
     <div class="page-content">
-
-        <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <a href="{{ route('add.property') }}"class="btn btn-info"> Add Property </a>
-            </ol>
-        </nav>
-
+        @if (Auth::User()->can('property.add'))
+            <nav class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <a href="{{ route('add.property') }}"class="btn btn-info"> Add Property </a>
+                </ol>
+            </nav>
+        @endif
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
@@ -47,16 +47,23 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('details.property', $item->id) }}" class="btn btn-info">
-                                                    <i data-feather="eye"></i>
-                                                </a>
-                                                <a href="{{ route('edit.property', $item->id) }}" class="btn btn-warning">
-                                                    <i data-feather="edit"></i>
-                                                </a>
-                                                <a href="{{ route('delete.property', $item->id) }}" class="btn btn-danger"
-                                                    id="delete">
-                                                    <i data-feather="trash-2"></i> </a>
-
+                                                @if (Auth::User()->can('property.edit'))
+                                                    <a href="{{ route('details.property', $item->id) }}"
+                                                        class="btn btn-info">
+                                                        <i data-feather="eye"></i>
+                                                    </a>
+                                                @endif
+                                                @if (Auth::User()->can('property.edit'))
+                                                    <a href="{{ route('edit.property', $item->id) }}"
+                                                        class="btn btn-warning">
+                                                        <i data-feather="edit"></i>
+                                                    </a>
+                                                @endif
+                                                @if (Auth::User()->can('property.delete'))
+                                                    <a href="{{ route('delete.property', $item->id) }}"
+                                                        class="btn btn-danger" id="delete">
+                                                        <i data-feather="trash-2"></i> </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

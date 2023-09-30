@@ -1,12 +1,13 @@
 @extends('admin.admin_dashboard')
 @section('admin')
     <div class="page-content">
-
-        <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <a href="{{ route('add.blog.post') }}"class="btn btn-info"> Add Post</a>
-            </ol>
-        </nav>
+        @if (Auth::User()->can('post.add'))
+            <nav class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <a href="{{ route('add.blog.post') }}"class="btn btn-info"> Add Post</a>
+                </ol>
+            </nav>
+        @endif
 
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -32,14 +33,17 @@
                                             <td>{{ $type->cat->category_name }}</td>
                                             <td><img src="{{ asset($type->post_image) }}" alt=""></td>
                                             <td>
-                                                <a href="{{ route('edit.blog.post', $type->id) }}"
-                                                    class="btn btn-warning">
-                                                    Edit
-                                                </a>
-                                                <a href="{{ route('delete.post', $type->id) }}"
-                                                    class="btn btn-danger" id="delete">
-                                                    Delete </a>
-
+                                                @if (Auth::User()->can('post.edit'))
+                                                    <a href="{{ route('edit.blog.post', $type->id) }}"
+                                                        class="btn btn-warning">
+                                                        Edit
+                                                    </a>
+                                                @endif
+                                                @if (Auth::User()->can('post.delete'))
+                                                    <a href="{{ route('delete.post', $type->id) }}" class="btn btn-danger"
+                                                        id="delete">
+                                                        Delete </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -30,12 +30,16 @@
                                             <td>{{ $type->type_name }}</td>
                                             <td>{{ $type->type_icon }}</td>
                                             <td>
-                                                <a href="{{ route('edit.type', $type->id) }}" class="btn btn-warning"> Edit
-                                                </a>
-                                                <a href="{{ route('delete.type', $type->id) }}" class="btn btn-danger"
-                                                    id="delete">
-                                                    Delete </a>
-
+                                                @if (Auth::User()->can('edit.type'))
+                                                    <a href="{{ route('edit.type', $type->id) }}" class="btn btn-warning">
+                                                        Edit
+                                                    </a>
+                                                @endif
+                                                @if (Auth::User()->can('delete.type'))
+                                                    <a href="{{ route('delete.type', $type->id) }}" class="btn btn-danger"
+                                                        id="delete">
+                                                        Delete </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

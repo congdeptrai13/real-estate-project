@@ -28,13 +28,16 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $type->amenity_name }}</td>
                                             <td>
+                                                @if (Auth::user()->can('amenities.edit'))
                                                 <a href="{{ route('edit.amenity', $type->id) }}" class="btn btn-warning">
                                                     Edit
                                                 </a>
+                                                @endif
+                                                @if (Auth::user()->can('amenities.delete'))
                                                 <a href="{{ route('delete.amenity', $type->id) }}" class="btn btn-danger"
                                                     id="delete">
                                                     Delete </a>
-
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach

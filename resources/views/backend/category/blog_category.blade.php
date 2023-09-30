@@ -1,14 +1,15 @@
 @extends('admin.admin_dashboard')
 @section('admin')
     <div class="page-content">
-
-        <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Category Add
-                </button>
-            </ol>
-        </nav>
+        @if (Auth::user()->can('category.add'))
+            <nav class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Category Add
+                    </button>
+                </ol>
+            </nav>
+        @endif
 
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -32,17 +33,18 @@
                                             <td>{{ $type->category_name }}</td>
                                             <td>{{ $type->category_slug }}</td>
                                             <td>
-                                                {{-- <a href="{{ route('edit.type', $type->id) }}" class="btn btn-warning"> Edit
-                                                </a> --}}
-                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#editCategory" id="{{ $type->id }}"
-                                                    onclick="EditCategory(this.id)">
-                                                    Edit
-                                                </button>
-                                                <a href="{{ route('delete.category', $type->id) }}" class="btn btn-danger"
-                                                    id="delete">
-                                                    Delete </a>
-
+                                                @if (Auth::user()->can('category.edit'))
+                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                        data-bs-target="#editCategory" id="{{ $type->id }}"
+                                                        onclick="EditCategory(this.id)">
+                                                        Edit
+                                                    </button>
+                                                @endif
+                                                @if (Auth::user()->can('category.delete'))
+                                                    <a href="{{ route('delete.category', $type->id) }}"
+                                                        class="btn btn-danger" id="delete">
+                                                        Delete </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -2,11 +2,6 @@
 @section('admin')
     <div class="page-content">
 
-        {{-- <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <a href="{{ route('add.state') }}"class="btn btn-info"> State Add </a>
-            </ol>
-        </nav> --}}
 
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -32,10 +27,12 @@
                                             <td>{{ $type->user->name }}</td>
                                             <td>{{ $type->subject }}</td>
                                             <td>
-                                                <a href="{{ route('admin.reply.comment', $type->id) }}"
-                                                    class="btn btn-warning">
-                                                    Replay
-                                                </a>
+                                                @if (Auth::user()->can('comment.edit'))
+                                                    <a href="{{ route('admin.reply.comment', $type->id) }}"
+                                                        class="btn btn-warning">
+                                                        Replay
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

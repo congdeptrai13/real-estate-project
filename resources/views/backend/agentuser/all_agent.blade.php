@@ -57,12 +57,17 @@
                                                     {{ $item->status ? 'checked' : '' }}>
                                             </td>
                                             <td>
-                                                <a href="{{ route('edit.agent', $item->id) }}" class="btn btn-warning">
-                                                    <i data-feather="edit"></i>
-                                                </a>
-                                                <a href="{{ route('delete.agent', $item->id) }}" class="btn btn-danger"
-                                                    id="delete">
-                                                    <i data-feather="trash-2"></i> </a>
+                                                @if (Auth::user()->can('agent.edit'))
+                                                    <a href="{{ route('edit.agent', $item->id) }}" class="btn btn-warning">
+                                                        <i data-feather="edit"></i>
+                                                    </a>
+                                                @endif
+                                                @if (Auth::user()->can('agent.delete'))
+                                                    <a href="{{ route('delete.agent', $item->id) }}" class="btn btn-danger"
+                                                        id="delete">
+                                                        <i data-feather="trash-2"></i> 
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
