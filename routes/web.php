@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Agent\AgentPropertyController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\ChatController;
 use App\Http\Controllers\backend\PropertyController;
 use App\Http\Controllers\backend\PropertyTypeController;
 use App\Http\Controllers\backend\RoleController;
@@ -48,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/user/profile/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
     Route::post('/user/password/update', [UserController::class, 'UserPasswordUpdate'])->name('user.password.update');
     Route::get("user/request", [UserController::class, "UserRequest"])->name('user.request');
+
+    //live chat route
+    Route::get("live/chat", [UserController::class, "LiveChat"])->name('live.chat');
 });
 
 Route::middleware(["auth", "roles:admin"])->group(function () {
@@ -340,3 +344,11 @@ Route::middleware(["auth", "roles:admin"])->group(function () {
         Route::get('/delete/admin/{id}', 'DeleteAdmin')->name('delete.admin');
     });
 });
+
+//chat route
+Route::post("/send-message", [ChatController::class, 'SendMsg'])->name('send.msg');
+Route::get("/user-all", [ChatController::class, 'GetAllUsers']);
+Route::get("/user-message/{userId}", [ChatController::class, 'UserMsgById']);
+
+Route::get("/agent/live/chat", [ChatController::class, 'AgentLiveChat'])->name('agent.live.chat');
+
